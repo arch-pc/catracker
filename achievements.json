@@ -7,22 +7,1056 @@
       "type": "Kill Count"
     },
     {
-      "monster": "Goblin",
-      "name": "First Blood",
-      "description": "Kill your first Goblin.",
+      "monster": "Barrows",
+      "name": "Defence? What Defence?",
+      "description": "Kill any Barrows Brother using only magical damage.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Barrows",
+      "name": "Barrows Novice",
+      "description": "Open the Barrows chest 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Black Dragon",
+      "name": "Big, Black and Fiery",
+      "description": "Kill a Black Dragon.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Bloodveld",
+      "name": "The Demonic Punching Bag",
+      "description": "Kill a Bloodveld.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Bryophyta",
+      "name": "Fighting as Intended II",
+      "description": "Kill Bryophyta on a free to play world.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Bryophyta",
+      "name": "Protection from Moss",
+      "description": "Kill Bryophyta with the Protect from Magic prayer active.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Bryophyta",
+      "name": "A Slow Death",
+      "description": "Kill Bryophyta with either poison or venom being the final source of damage.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Bryophyta",
+      "name": "Bryophyta Novice",
+      "description": "Open Bryophyta's chest once.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Bryophyta",
+      "name": "Preparation Is Key",
+      "description": "Kill Bryophyta without suffering any poison damage.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Deranged Archaeologist",
+      "name": "Deranged Archaeologist Novice",
+      "description": "Kill the Deranged Archaeologist 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Fire Giant",
+      "name": "The Walking Volcano",
+      "description": "Kill a Fire Giant.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Giant Mole",
+      "name": "Giant Mole Novice",
+      "description": "Kill the Giant Mole 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Greater Demon",
+      "name": "Not So Great After All",
+      "description": "Finish off a Greater Demon with a demonbane weapon.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Greater Demon",
+      "name": "A Greater Foe",
+      "description": "Kill a Greater Demon.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Hellhound",
+      "name": "A Demon's Best Friend",
+      "description": "Kill a Hellhound.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "King Black Dragon",
+      "name": "King Black Dragon Novice",
+      "description": "Kill the King Black Dragon 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Lizardman Shaman",
+      "name": "A Scaley Encounter",
+      "description": "Kill a Lizardman Shaman.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Lizardman Shaman",
+      "name": "Shayzien Protector",
+      "description": "Kill a Lizardman Shaman in Molch which has not dealt damage to anyone. (excluding its Spawns)",
+      "type": "Perfection"
+    },
+    {
+      "monster": "N/A",
+      "name": "Into the Den of Giants",
+      "description": "Kill a Hill Giant, Moss Giant and Fire Giant in the Giant Cave within the Shayzien region.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Obor",
+      "name": "Fighting as Intended",
+      "description": "Kill Obor on a free to play world.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Obor",
+      "name": "Obor Novice",
+      "description": "Open Obor's chest once.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Obor",
+      "name": "Sleeping Giant",
+      "description": "Kill Obor whilst he is immobilized.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Royal Titans",
+      "name": "One by one",
+      "description": "Kill one Titan at a time, without attacking the other.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Royal Titans",
+      "name": "Let them fight",
+      "description": "Kill the Royal Titans while having the Royal Titans kill a total of 10 elementals.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Royal Titans",
+      "name": "Elemental Company",
+      "description": "Kill the Royal Titans without attacking any elementals.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Sarachnis",
+      "name": "Sarachnis Novice",
+      "description": "Kill Sarachnis 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Scurrius",
+      "name": "Scurrius Novice",
+      "description": "Kill Scurrius once.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Scurrius",
+      "name": "Sit Rat",
+      "description": "Finish off Scurrius with a ratbane weapon in a private instance.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Tempoross",
+      "name": "Calm Before the Storm",
+      "description": "Repair either a mast or a totem pole.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Tempoross",
+      "name": "Master of Buckets",
+      "description": "Extinguish at least 5 fires during a single Tempoross fight.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Tempoross",
+      "name": "Tempoross Novice",
+      "description": "Subdue Tempoross 5 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Tempoross",
+      "name": "Fire in the Hole!",
+      "description": "Attack Tempoross from both sides by loading both cannons on both ships.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Wintertodt",
+      "name": "Mummy!",
+      "description": "Heal a pyromancer after they have fallen.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Wintertodt",
+      "name": "Wintertodt Novice",
+      "description": "Subdue the Wintertodt 5 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Wintertodt",
+      "name": "Cosy",
+      "description": "Subdue the Wintertodt with four pieces of warm equipment equipped.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Wintertodt",
+      "name": "Handyman",
+      "description": "Repair a brazier which has been destroyed by the Wintertodt.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Wyrm",
+      "name": "A Slithery Encounter",
+      "description": "Kill a Wyrm.",
       "type": "Kill Count"
     }
   ],
   "medium": [
     {
-      "monster": "Dragon",
-      "name": "Dragon Slayer",
-      "description": "Defeat a Dragon.",
-      "type": "Boss Kill"
+      "monster": "Amoxliatl",
+      "name": "Temotli Triumph",
+      "description": "Kill Amoxliatl using only glacial temotli as a weapon.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Amoxliatl",
+      "name": "Amoxliatl Champion",
+      "description": "Kill Amoxliatl once.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Barrows",
+      "name": "Pray for Success",
+      "description": "Kill all six Barrows Brothers and loot the Barrows chest without taking any damage from any of the brothers.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Barrows",
+      "name": "Barrows Champion",
+      "description": "Open the Barrows chest 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Barrows",
+      "name": "Can't Touch Me",
+      "description": "Kill Dharok, Verac, Torag and Guthan without letting them attack you with melee.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Brutal Black Dragon",
+      "name": "Brutal, Big, Black and Firey",
+      "description": "Kill a Brutal Black Dragon.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Bryophyta",
+      "name": "Quick Cutter",
+      "description": "Kill all 3 of Bryophyta's growthlings within 3 seconds of the first one dying.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Bryophyta",
+      "name": "Bryophyta Champion",
+      "description": "Open Bryophyta's chest 5 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Chaos Fanatic",
+      "name": "Sorry, What Was That?",
+      "description": "Kill the Chaos Fanatic without anyone being hit by his explosion attack.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Chaos Fanatic",
+      "name": "Chaos Fanatic Champion",
+      "description": "Kill the Chaos Fanatic 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Crazy Archaeologist",
+      "name": "I'd Rather Not Learn",
+      "description": "Kill the Crazy Archaeologist without anyone being hit by his \"Rain of Knowledge\" attack.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Crazy Archaeologist",
+      "name": "Crazy Archaeologist Champion",
+      "description": "Kill the Crazy Archaeologist 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Crazy Archaeologist",
+      "name": "Mage of the Ruins",
+      "description": "Kill the Crazy Archaeologist with only magical attacks.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Dagannoth Prime",
+      "name": "Dagannoth Prime Champion",
+      "description": "Kill Dagannoth Prime 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Dagannoth Rex",
+      "name": "Dagannoth Rex Champion",
+      "description": "Kill Dagannoth Rex 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Dagannoth Rex",
+      "name": "A Frozen King",
+      "description": "Kill Dagannoth Rex whilst he is immobilized.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Dagannoth Supreme",
+      "name": "Dagannoth Supreme Champion",
+      "description": "Kill Dagannoth Supreme 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Deranged Archaeologist",
+      "name": "I'd Rather Be Illiterate",
+      "description": "Kill the Deranged Archaeologist without anyone being hit by his \"Learn to Read\" attack.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Deranged Archaeologist",
+      "name": "Deranged Archaeologist Champion",
+      "description": "Kill the Deranged Archaeologist 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Deranged Archaeologist",
+      "name": "Mage of the Swamp",
+      "description": "Kill the Deranged Archaeologist with only magical attacks.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Gargoyle",
+      "name": "A Smashing Time",
+      "description": "Kill a Gargoyle.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Giant Mole",
+      "name": "Giant Mole Champion",
+      "description": "Kill the Giant mole 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Giant Mole",
+      "name": "Avoiding Those Little Arms",
+      "description": "Kill the Giant Mole without her damaging anyone.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "King Black Dragon",
+      "name": "Claw Clipper",
+      "description": "Kill the King Black Dragon with the Protect from Melee prayer activated.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "King Black Dragon",
+      "name": "Hide Penetration",
+      "description": "Kill the King Black Dragon with a stab weapon.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "King Black Dragon",
+      "name": "King Black Dragon Champion",
+      "description": "Kill the King Black Dragon 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "King Black Dragon",
+      "name": "Antifire Protection",
+      "description": "Kill the King Black Dragon with an antifire potion active and an antidragon shield equipped.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Kurask",
+      "name": "Master of Broad Weaponry",
+      "description": "Kill a Kurask.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Moons of Peril",
+      "name": "Moons of Peril Speed-Trialist",
+      "description": "Defeat all three Moons in one run in under 8 minutes.",
+      "type": "Speed"
+    },
+    {
+      "monster": "Moons of Peril",
+      "name": "Perilous Novice",
+      "description": "Open the Reward Chest 5 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Moons of Peril",
+      "name": "Lunar Triplet",
+      "description": "Open the Reward Chest after defeating all three Moons.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Moons of Peril",
+      "name": "Back to Our Roots",
+      "description": "Defeat all three Moons in one run by only attacking with a Dragon Scimitar.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "N/A",
+      "name": "Sit Back and Relax",
+      "description": "Deal 100 damage to creatures using undead thralls.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Obor",
+      "name": "Back to the Wall",
+      "description": "Kill Obor without being pushed back more than one square by his knockback attack.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Obor",
+      "name": "Squashing the Giant",
+      "description": "Kill Obor without taking any damage off prayer.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Obor",
+      "name": "Obor Champion",
+      "description": "Open Obor's chest 5 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Royal Titans",
+      "name": "It takes too long",
+      "description": "Kill both Royal Titans while they are charging up their area attack. Both titans must die during the same charging phase.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Royal Titans",
+      "name": "Royal Titan Adept",
+      "description": "Kill the Royal Titans 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Royal Titans",
+      "name": "Royal Titan Champion",
+      "description": "Kill the Royal Titans 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Sarachnis",
+      "name": "Newspaper Enthusiast",
+      "description": "Kill Sarachnis with a crush weapon.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Sarachnis",
+      "name": "Sarachnis Champion",
+      "description": "Kill Sarachnis 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Scurrius",
+      "name": "Scurrius Champion",
+      "description": "Kill Scurrius 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Scurrius",
+      "name": "Efficient Pest Control",
+      "description": "Kill 6 Giant Rats within Scurrius' lair in 3 seconds.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Scurrius",
+      "name": "Perfect Scurrius",
+      "description": "Kill Scurrius in a private instance without taking damage from the following attacks: Tail Swipe and Falling Bricks. Pray correctly against the following attacks: Flying Fur and Bolts of Electricity.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Skeletal Wyvern",
+      "name": "A Frozen Foe from the Past",
+      "description": "Kill a Skeletal Wyvern",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Skotizo",
+      "name": "Demonbane Weaponry",
+      "description": "Kill Skotizo with a demonbane weapon equipped.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Skotizo",
+      "name": "Skotizo Champion",
+      "description": "Kill Skotizo once.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Skotizo",
+      "name": "Demonic Weakening",
+      "description": "Kill Skotizo with no altars active.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Tempoross",
+      "name": "The Lone Angler",
+      "description": "Subdue Tempoross alone without getting hit by any fires, torrents or waves.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Tempoross",
+      "name": "Tempoross Champion",
+      "description": "Subdue Tempoross 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "The Hueycoatl",
+      "name": "Hueycoatl Champion",
+      "description": "Kill the Hueycoatl once.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "The Hueycoatl",
+      "name": "You're a wizard",
+      "description": "Kill the Hueycoatl using only earth spells.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Wintertodt",
+      "name": "Can We Fix It?",
+      "description": "Subdue the Wintertodt without allowing all 4 braziers to be broken at the same time.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Wintertodt",
+      "name": "Wintertodt Champion",
+      "description": "Subdue the Wintertodt 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Wintertodt",
+      "name": "Leaving No One Behind",
+      "description": "Subdue the Wintertodt without any of the Pyromancers falling.",
+      "type": "Restriction"
     }
   ],
-  "hard": [],
+  "hard": [
+    {
+      "monster": "Abyssal Sire",
+      "name": "Abyssal Adept",
+      "description": "Kill the Abyssal Sire 20 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Abyssal Sire",
+      "name": "Don't Whip Me",
+      "description": "Kill the Abyssal Sire without being hit by any external tentacles.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Abyssal Sire",
+      "name": "Don't Stop Moving",
+      "description": "Kill the Abyssal Sire without taking damage from any miasma pools.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Abyssal Sire",
+      "name": "They Grow Up Too Fast",
+      "description": "Kill the Abyssal Sire without letting any Scion mature.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Amoxliatl",
+      "name": "Nagua Negation",
+      "description": "Kill Amoxliatl without taking any damage.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Amoxliatl",
+      "name": "Kemo Makti",
+      "description": "Kill Amoxliatl 10 times without leaving her chamber.",
+      "type": "Stamina"
+    },
+    {
+      "monster": "Amoxliatl",
+      "name": "Amoxliatl Speed-Trialist",
+      "description": "Kill Amoxliatl in less than 1 minute.",
+      "type": "Speed"
+    },
+    {
+      "monster": "Amoxliatl",
+      "name": "Amoxliatl Adept",
+      "description": "Kill Amoxliatl 20 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Amoxliatl",
+      "name": "Totally Shattered",
+      "description": "Kill Amoxliatl without any of her unstable ice shattering.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Barrows",
+      "name": "Just Like That",
+      "description": "Kill Karil using only damage dealt by special attacks.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Barrows",
+      "name": "Faithless Crypt Run",
+      "description": "Kill all six Barrows Brothers and loot the Barrows chest without ever having more than 0 prayer points.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Callisto",
+      "name": "Callisto Adept",
+      "description": "Kill Callisto 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Chaos Elemental",
+      "name": "The Flincher",
+      "description": "Kill the Chaos Elemental without taking any damage from its attacks.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Chaos Elemental",
+      "name": "Chaos Elemental Adept",
+      "description": "Kill the Chaos Elemental 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Chaos Elemental",
+      "name": "Hoarder",
+      "description": "Kill the Chaos Elemental without it unequipping any of your items.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Chaos Fanatic",
+      "name": "Praying to the Gods",
+      "description": "Kill the Chaos Fanatic 10 times without drinking any potion which restores prayer or leaving the Wilderness.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Chaos Fanatic",
+      "name": "Chaos Fanatic Adept",
+      "description": "Kill the Chaos Fanatic 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Commander Zilyana",
+      "name": "Commander Zilyana Adept",
+      "description": "Kill Commander Zilyana 50 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Commander Zilyana",
+      "name": "Commander Showdown",
+      "description": "Finish off Commander Zilyana while all of her bodyguards are dead.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Crazy Archaeologist",
+      "name": "Crazy Archaeologist Adept",
+      "description": "Kill the Crazy Archaeologist 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Dagannoth Prime",
+      "name": "Dagannoth Prime Adept",
+      "description": "Kill Dagannoth Prime 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Dagannoth Rex",
+      "name": "Dagannoth Rex Adept",
+      "description": "Kill Dagannoth Rex 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Dagannoth Supreme",
+      "name": "Dagannoth Supreme Adept",
+      "description": "Kill Dagannoth Supreme 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "General Graardor",
+      "name": "General Showdown",
+      "description": "Finish off General Graardor whilst all of his bodyguards are dead.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "General Graardor",
+      "name": "General Graardor Adept",
+      "description": "Kill General Graardor 50 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "General Graardor",
+      "name": "Ourg Freezer",
+      "description": "Kill General Graardor whilst he is immobilized.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Giant Mole",
+      "name": "Whack-a-Mole",
+      "description": "Kill the Giant Mole within 10 seconds of her resurfacing.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Giant Mole",
+      "name": "Why Are You Running?",
+      "description": "Kill the Giant Mole without her burrowing more than 2 times.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Grotesque Guardians",
+      "name": "Prison Break",
+      "description": "Kill the Grotesque Guardians without taking damage from Dusk's prison attack.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Grotesque Guardians",
+      "name": "Don't Look at the Eclipse",
+      "description": "Kill the Grotesque Guardians without taking damage from Dusk's blinding attack.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Grotesque Guardians",
+      "name": "Granite Footwork",
+      "description": "Kill the Grotesque Guardians without taking damage from Dawn's rockfall attack.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Grotesque Guardians",
+      "name": "Static Awareness",
+      "description": "Kill the Grotesque Guardians without being hit by any lightning attacks.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Grotesque Guardians",
+      "name": "Grotesque Guardians Adept",
+      "description": "Kill the Grotesque Guardians 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Grotesque Guardians",
+      "name": "Heal No More",
+      "description": "Kill the Grotesque Guardians without letting Dawn receive any healing from her orbs.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Hespori",
+      "name": "Weed Whacker",
+      "description": "Kill all of Hesporis flowers within 5 seconds.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Hespori",
+      "name": "Hesporisn't",
+      "description": "Finish off Hespori with a special attack.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Hespori",
+      "name": "Hespori Adept",
+      "description": "Kill Hespori 5 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "K'ril Tsutsaroth",
+      "name": "Yarr No More",
+      "description": "Receive kill-credit for K'ril Tsutsaroth without him using his special attack.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "K'ril Tsutsaroth",
+      "name": "Demonic Showdown",
+      "description": "Finish off K'ril Tsutsaroth whilst all of his bodyguards are dead.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "K'ril Tsutsaroth",
+      "name": "K'ril Tsutsaroth Adept",
+      "description": "Kill K'ril Tsutsaroth 50 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "K'ril Tsutsaroth",
+      "name": "Demonbane Weaponry II",
+      "description": "Finish off K'ril Tsutsaroth with a demonbane weapon.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Kalphite Queen",
+      "name": "Chitin Penetrator",
+      "description": "Kill the Kalphite Queen while her defence was last lowered by you.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Kalphite Queen",
+      "name": "Kalphite Queen Adept",
+      "description": "Kill the Kalphite Queen 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "King Black Dragon",
+      "name": "Who Is the King Now?",
+      "description": "Kill The King Black Dragon 10 times in a private instance without leaving the instance.",
+      "type": "Stamina"
+    },
+    {
+      "monster": "Kraken",
+      "name": "Unnecessary Optimisation",
+      "description": "Kill the Kraken after killing all four tentacles.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Kraken",
+      "name": "Krakan't Hurt Me",
+      "description": "Kill the Kraken 25 times in a private instance without leaving the room.",
+      "type": "Stamina"
+    },
+    {
+      "monster": "Kraken",
+      "name": "Kraken Adept",
+      "description": "Kill the Kraken 20 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Kree'arra",
+      "name": "Kree'arra Adept",
+      "description": "Kill Kree'arra 50 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Kree'arra",
+      "name": "Airborne Showdown",
+      "description": "Finish off Kree'arra whilst all of his bodyguards are dead.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Moons of Peril",
+      "name": "Perilous Dancer",
+      "description": "Defeat all the Moons in one run while only taking damage from regular attacks.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Moons of Peril",
+      "name": "Fortified",
+      "description": "Defeat a Moon without consuming any supplies.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Moons of Peril",
+      "name": "Betrayal",
+      "description": "Defeat a Moon using its associated weapon drop.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Moons of Peril",
+      "name": "Fat of the Land",
+      "description": "Defeat 30 Moons of Peril bosses without leaving the dungeon.",
+      "type": "Stamina"
+    },
+    {
+      "monster": "Moons of Peril",
+      "name": "Moons of Peril Speed-Chaser",
+      "description": "Defeat all three Moons in one run in under 6 minutes.",
+      "type": "Speed"
+    },
+    {
+      "monster": "Moons of Peril",
+      "name": "The Clone Zone",
+      "description": "Defeat the Eclipse moon by only attacking its clones.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Moons of Peril",
+      "name": "Perilous Champion",
+      "description": "Open the Reward Chest 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Phantom Muspah",
+      "name": "Phantom Muspah Adept",
+      "description": "Kill the Phantom Muspah.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Royal Titans",
+      "name": "Royal Titan Speed-Runner",
+      "description": "Kill the Royal Titans in less than 1:30 minutes.",
+      "type": "Speed"
+    },
+    {
+      "monster": "Royal Titans",
+      "name": "Perfect Royal Titans",
+      "description": "Kill the Royal Titans without getting hit by any avoidable damage. This includes: Melee attacks, Explosions from the ice or fire elemental, Icicle or fire spawn damage, and Ice or fire pulse attacks.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Royal Titans",
+      "name": "I need room",
+      "description": "Kill the Royal Titans while extinguishing all fires and melting all icicles before they dissipate naturally.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Royal Titans",
+      "name": "Titan Killer",
+      "description": "Kill the Royal Titans 15 times without anyone leaving the instance. If a player joins the fight, the current streak will be reset to 0. If a player leaves the fight, the task will be failed and a new instance will need to be created.",
+      "type": "Stamina"
+    },
+    {
+      "monster": "Sarachnis",
+      "name": "Ready to Pounce",
+      "description": "Kill Sarachnis without her using her range attack twice in a row.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "Sarachnis",
+      "name": "Inspect Repellent",
+      "description": "Kill Sarachnis without her dealing damage to anyone.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Scorpia",
+      "name": "I Can't Reach That",
+      "description": "Kill Scorpia without taking any damage from her.",
+      "type": "Perfection"
+    },
+    {
+      "monster": "Scorpia",
+      "name": "Guardians No More",
+      "description": "Kill Scorpia without killing her guardians.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Scorpia",
+      "name": "Scorpia Adept",
+      "description": "Kill Scorpia 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Skotizo",
+      "name": "Skotizo Adept",
+      "description": "Kill Skotizo 5 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Tempoross",
+      "name": "Dress Like You Mean It",
+      "description": "Subdue Tempoross while wearing any variation of the angler outfit.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Tempoross",
+      "name": "Why Cook?",
+      "description": "Subdue Tempoross, getting rewarded with 10 reward permits from a single Tempoross fight.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "The Hueycoatl",
+      "name": "Pillar Lover",
+      "description": "Kill the Hueycoatl whilst it is vulnerable.",
+      "type": "Mechanical"
+    },
+    {
+      "monster": "The Hueycoatl",
+      "name": "Hueycoatl Adept",
+      "description": "Kill the Hueycoatl 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "The Hueycoatl",
+      "name": "I'm your son",
+      "description": "Kill the Hueycoatl whilst wearing two pieces of Hueycoatl armour.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "The Nightmare",
+      "name": "Nightmare Adept",
+      "description": "Kill The Nightmare once.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Theatre of Blood: Entry Mode",
+      "name": "Theatre of Blood: SM Adept",
+      "description": "Complete the Theatre of Blood: Entry Mode 1 time.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Tombs of Amascut: Entry Mode",
+      "name": "Confident Raider",
+      "description": "Complete a Tombs of Amascut raid at level 100 or above.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Tombs of Amascut: Entry Mode",
+      "name": "Novice Tomb Looter",
+      "description": "Complete the Tombs of Amascut in Entry mode (or above) 25 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Tombs of Amascut: Entry Mode",
+      "name": "Movin' on up",
+      "description": "Complete a Tombs of Amascut raid at level 50 or above.",
+      "type": "Restriction"
+    },
+    {
+      "monster": "Tombs of Amascut: Entry Mode",
+      "name": "Novice Tomb Explorer",
+      "description": "Complete the Tombs of Amascut in Entry mode (or above) once.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Venenatis",
+      "name": "Venenatis Adept",
+      "description": "Kill Venenatis 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Vet'ion",
+      "name": "Vet'ion Adept",
+      "description": "Kill Vet'ion 10 times.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Wintertodt",
+      "name": "Why Fletch?",
+      "description": "Subdue the Wintertodt after earning 3000 or more points.",
+      "type": "Stamina"
+    },
+    {
+      "monster": "Zulrah",
+      "name": "Zulrah Adept",
+      "description": "Kill Zulrah 25 times.",
+      "type": "Kill Count"
+    }
+  ],
   "elite": [],
   "master": [],
   "grandmaster": []
+
 }
