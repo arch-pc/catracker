@@ -2468,7 +2468,7 @@
       "name": "Phantom Muspah Master",
       "description": "Kill the Phantom Muspah 50 times.",
       "type": "Kill Count"
-    }
+    },
       {
       "monster": "Phantom Muspah",
       "name": "Phantom Muspah Speed-Chaser",
@@ -3672,5 +3672,6 @@
     }
   ]
 }
+
 
 
