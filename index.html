@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f8f9fa;
             min-height: 100vh;
             padding: 20px;
         }
@@ -21,10 +21,11 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
+            background: white;
+            border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
         }
 
         .header {
@@ -33,10 +34,10 @@
         }
 
         .header h1 {
-            color: #333;
-            font-size: 2.5rem;
+            color: #495057;
+            font-size: 2.2rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
         }
 
         .stats {
@@ -48,23 +49,21 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
+            background: #f8f9fa;
+            color: #495057;
+            padding: 24px;
+            border-radius: 8px;
             text-align: center;
             min-width: 150px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             transform: translateY(0);
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #e9ecef;
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-card.done {
-            background: linear-gradient(135deg, #00d2d3, #54a0ff);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
         }
 
         .stat-number {
@@ -86,8 +85,9 @@
             margin-bottom: 30px;
             padding: 20px;
             background: #f8f9fa;
-            border-radius: 10px;
-            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            color: #6c757d;
         }
 
         .load-btn {
@@ -109,9 +109,10 @@
         .category {
             margin-bottom: 30px;
             background: white;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e9ecef;
         }
 
         .category-header {
@@ -124,12 +125,12 @@
             letter-spacing: 1px;
         }
 
-        .easy { background: linear-gradient(135deg, #2ecc71, #27ae60); }
-        .medium { background: linear-gradient(135deg, #f39c12, #e67e22); }
-        .hard { background: linear-gradient(135deg, #e74c3c, #c0392b); }
-        .elite { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
-        .master { background: linear-gradient(135deg, #34495e, #2c3e50); }
-        .grandmaster { background: linear-gradient(135deg, #f1c40f, #f39c12); }
+        .easy { background: #28a745; }
+        .medium { background: #fd7e14; }
+        .hard { background: #dc3545; }
+        .elite { background: #6f42c1; }
+        .master { background: #343a40; }
+        .grandmaster { background: #ffc107; color: #212529; }
 
         .achievement {
             display: flex;
@@ -148,7 +149,7 @@
         }
 
         .achievement.done {
-            background: #e8f5e8;
+            background: #f8f9fa;
             opacity: 0.7;
         }
 
@@ -158,14 +159,14 @@
         }
 
         .achievement-name {
-            font-weight: bold;
+            font-weight: 600;
             font-size: 1.1rem;
-            color: #333;
+            color: #343a40;
             margin-bottom: 5px;
         }
 
         .achievement-description {
-            color: #666;
+            color: #6c757d;
             font-size: 0.9rem;
             margin-bottom: 3px;
         }
@@ -174,7 +175,7 @@
             display: flex;
             gap: 15px;
             font-size: 0.8rem;
-            color: #888;
+            color: #adb5bd;
         }
 
         .achievement-buttons {
@@ -209,8 +210,13 @@
             color: white;
         }
 
-        .btn-done:hover {
-            background: #218838;
+        .btn-reset {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #5a6268;
             transform: translateY(-2px);
         }
 
@@ -222,7 +228,7 @@
 
         .empty-state {
             text-align: center;
-            color: #666;
+            color: #6c757d;
             font-style: italic;
             padding: 40px;
         }
@@ -236,20 +242,16 @@
 
         <div class="stats">
             <div class="stat-card">
-                <div class="stat-number" id="todoCount">0</div>
-                <div class="stat-label">To Do</div>
-            </div>
-            <div class="stat-card done">
                 <div class="stat-number" id="doneCount">0</div>
                 <div class="stat-label">Completed</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="todoPoints">0</div>
-                <div class="stat-label">To Do Points</div>
+                <div class="stat-number" id="currentPoints">0</div>
+                <div class="stat-label">Current Points</div>
             </div>
-            <div class="stat-card done">
-                <div class="stat-number" id="donePoints">0</div>
-                <div class="stat-label">Earned Points</div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalIncludingTodo">0</div>
+                <div class="stat-label">Including To Do</div>
             </div>
         </div>
 
@@ -352,6 +354,11 @@
                                         ${state === 'done' ? 'disabled' : ''}>
                                     Done
                                 </button>
+                                <button class="btn btn-reset" 
+                                        onclick="setAchievementState('${achievementId}', 'none')"
+                                        ${state === 'none' ? 'disabled' : ''}>
+                                    Reset
+                                </button>
                             </div>
                         `;
                         
@@ -370,10 +377,9 @@
         }
 
         function updateStats() {
-            let todoCount = 0;
             let doneCount = 0;
-            let todoPoints = 0;
-            let donePoints = 0;
+            let currentPoints = 0;
+            let totalIncludingTodo = 0;
 
             Object.keys(achievements).forEach(category => {
                 if (achievements[category]) {
@@ -383,20 +389,19 @@
                         const points = categoryPoints[category];
 
                         if (state === 'todo') {
-                            todoCount++;
-                            todoPoints += points;
+                            totalIncludingTodo += points;
                         } else if (state === 'done') {
                             doneCount++;
-                            donePoints += points;
+                            currentPoints += points;
+                            totalIncludingTodo += points;
                         }
                     });
                 }
             });
 
-            document.getElementById('todoCount').textContent = todoCount;
             document.getElementById('doneCount').textContent = doneCount;
-            document.getElementById('todoPoints').textContent = todoPoints;
-            document.getElementById('donePoints').textContent = donePoints;
+            document.getElementById('currentPoints').textContent = currentPoints;
+            document.getElementById('totalIncludingTodo').textContent = totalIncludingTodo;
         }
 
         // Auto-load achievements on page load - no manual file input needed
