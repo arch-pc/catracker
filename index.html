@@ -76,18 +76,6 @@
             border: 1px solid #e9ecef;
         }
 
-        .stat-card.compact {
-            padding: 15px;
-        }
-
-        .stat-card.compact .stat-number {
-            font-size: 1.5rem;
-        }
-
-        .stat-card.compact .stat-label {
-            font-size: 0.85rem;
-        }
-
         .stat-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -319,17 +307,6 @@
             margin-bottom: 3px;
         }
 
-        .achievement-requirements {
-            color: #17a2b8;
-            font-size: 0.85rem;
-            margin-bottom: 5px;
-            font-style: italic;
-            background: #e8f4f8;
-            padding: 4px 8px;
-            border-radius: 4px;
-            border-left: 3px solid #17a2b8;
-        }
-
         .achievement-meta {
             display: flex;
             gap: 15px;
@@ -489,11 +466,15 @@
 
             <div class="sidebar">
                 <div class="stats">
-                    <div class="stat-card compact">
+                    <div class="stat-card">
+                        <div class="stat-number" id="doneCount">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card">
                         <div class="stat-number" id="currentPoints">0</div>
                         <div class="stat-label">Current Points</div>
                     </div>
-                    <div class="stat-card compact">
+                    <div class="stat-card">
                         <div class="stat-number" id="totalIncludingTodo">0</div>
                         <div class="stat-label">Including To Do</div>
                     </div>
@@ -558,19 +539,55 @@
             grandmaster: 2525
         };
 
-        const bossCategories = [
-            'Sire', 'Hydra', 'Amoxliatl', 'Araxxor', 'Barrows', 'Bryophyta', 
-            'Callisto', 'Cerberus', 'CoX', 'CoX:CM', 'Chaos Ele', 'Chaos Fanatic',
-            'Zilyana', 'Corp', 'Corr Gauntlet', 'Gauntlet', 'Dagga Kings', 
-            'Deranged Arch', 'Duke', 'Colloseum', 'Graardor', 'Mole', 'Grotesques',
-            'Hespori', 'K\'ril', 'KQ', 'KBD', 'Kraken', 'Kree\'arra', 'Leviathan',
-            'Moons', 'Nex', 'Obor', 'Muspah', 'Phosani', 'Royal Titans', 'Sarachnis',
-            'Scorpia', 'Scurrius', 'Skotizo', 'Tempoross', 'Huey', 'Nightmare',
-            'ToB', 'ToB:Entry', 'ToB:HM', 'Thermy', 'ToA', 'ToA:Entry', 'ToA:Expert',
-            'Zuk', 'Jad', 'Tzhaar challenge', 'Vardorvis', 'Venenatis', 'Vet\'ion',
-            'Vorkath', 'Whisperer', 'Wintertodt', 'Yama', 'Zalcano', 'Zulrah',
-            'Quest bosses', 'Misc'
-        ];
+        const bossAbbreviations = {
+            'Chambers of Xeric: Challenge Mode': 'CoX: CM',
+            'Chambers of Xeric': 'CoX',
+            'Theatre of Blood': 'ToB',
+            'Theatre of Blood: Hard Mode': 'ToB: HM',
+            'Tombs of Amascut': 'ToA',
+            'Tombs of Amascut: Expert Mode': 'ToA: Expert',
+            'The Gauntlet': 'Gauntlet',
+            'Corrupted Gauntlet': 'C. Gauntlet',
+            'Alchemical Hydra': 'Hydra',
+            'Cerberus': 'Cerberus',
+            'Commander Zilyana': 'Zilyana',
+            'General Graardor': 'Graardor',
+            'Kree\'Arra': 'Kree\'Arra',
+            'K\'ril Tsutsaroth': 'K\'ril',
+            'Corporeal Beast': 'Corp',
+            'King Black Dragon': 'KBD',
+            'Dagannoth Kings': 'DKs',
+            'Giant Mole': 'Mole',
+            'Kalphite Queen': 'KQ',
+            'Vorkath': 'Vorkath',
+            'Zulrah': 'Zulrah',
+            'Abyssal Sire': 'Sire',
+            'Kraken': 'Kraken',
+            'Thermonuclear Smoke Devil': 'Thermy',
+            'Grotesque Guardians': 'GGs',
+            'Nightmare': 'Nightmare',
+            'Phosani\'s Nightmare': 'P. Nightmare',
+            'Nex': 'Nex',
+            'Tempoross': 'Tempoross',
+            'Wintertodt': 'Wintertodt',
+            'Zalcano': 'Zalcano',
+            'Sarachnis': 'Sarachnis',
+            'Skotizo': 'Skotizo',
+            'Jad': 'Jad',
+            'Zuk': 'Zuk',
+            'Mimic': 'Mimic',
+            'Hespori': 'Hespori',
+            'Bryophyta': 'Bryophyta',
+            'Obor': 'Obor',
+            'Deranged Archaeologist': 'D. Arch',
+            'Chaos Fanatic': 'C. Fanatic',
+            'Crazy Archaeologist': 'C. Arch',
+            'Scorpia': 'Scorpia',
+            'Vet\'ion': 'Vet\'ion',
+            'Venenatis': 'Venenatis',
+            'Callisto': 'Callisto',
+            'Chaos Elemental': 'C. Elemental'
+        };
 
         async function loadAchievementsFromFile() {
             try {
@@ -611,15 +628,7 @@
                 }
             });
 
-            // Only include bosses that are in our predefined list
-            const filteredBosses = new Set();
             allBosses.forEach(boss => {
-                if (bossCategories.includes(boss)) {
-                    filteredBosses.add(boss);
-                }
-            });
-
-            filteredBosses.forEach(boss => {
                 bossFilters[boss] = true;
             });
 
@@ -630,18 +639,15 @@
             const bossButtonsContainer = document.getElementById('bossButtons');
             const bossFiltersContainer = document.getElementById('bossFilters');
             
-            if (filteredBosses.size > 0) {
+            if (allBosses.size > 0) {
                 bossFiltersContainer.style.display = 'block';
                 bossButtonsContainer.innerHTML = '';
                 
-                // Sort according to our predefined order
-                const sortedBosses = bossCategories.filter(boss => filteredBosses.has(boss));
-                
-                sortedBosses.forEach(boss => {
+                Array.from(allBosses).sort().forEach(boss => {
                     const button = document.createElement('button');
                     button.className = 'boss-btn active';
-                    button.textContent = boss;
-                    button.title = boss;
+                    button.textContent = bossAbbreviations[boss] || boss;
+                    button.title = boss; // Show full name on hover
                     button.onclick = () => toggleBossFilter(boss);
                     bossButtonsContainer.appendChild(button);
                 });
@@ -807,17 +813,10 @@
                             
                             const achievementDiv = document.createElement('div');
                             achievementDiv.className = `achievement ${state === 'done' ? 'done' : ''}`;
-                            
-                            let requirementsHTML = '';
-                            if (achievement.requirements) {
-                                requirementsHTML = `<div class="achievement-requirements">Requirements: ${achievement.requirements}</div>`;
-                            }
-                            
                             achievementDiv.innerHTML = `
                                 <div class="achievement-info">
                                     <div class="achievement-name">${achievement.name}</div>
                                     <div class="achievement-description">${achievement.description}</div>
-                                    ${requirementsHTML}
                                     <div class="achievement-meta">
                                         <span><strong>Monster:</strong> ${achievement.monster}</span>
                                         <span><strong>Type:</strong> ${achievement.type}</span>
@@ -903,6 +902,7 @@
                 }
             });
 
+            document.getElementById('doneCount').textContent = doneCount;
             document.getElementById('currentPoints').textContent = currentPoints;
             document.getElementById('totalIncludingTodo').textContent = totalIncludingTodo;
             
