@@ -19,13 +19,30 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 12px;
             padding: 30px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             border: 1px solid #e9ecef;
+        }
+
+        .main-layout {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .achievements-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sidebar {
+            flex: 0 0 320px;
+            position: sticky;
+            top: 20px;
         }
 
         .header {
@@ -42,19 +59,17 @@
 
         .stats {
             display: flex;
-            justify-content: center;
-            gap: 30px;
+            flex-direction: column;
+            gap: 15px;
             margin-bottom: 30px;
-            flex-wrap: wrap;
         }
 
         .stat-card {
             background: #f8f9fa;
             color: #495057;
-            padding: 24px;
+            padding: 20px;
             border-radius: 8px;
             text-align: center;
-            min-width: 150px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             transform: translateY(0);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -116,13 +131,40 @@
         }
 
         .category-header {
-            padding: 20px;
+            padding: 15px 20px;
             font-weight: bold;
             color: white;
-            text-align: center;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .category-header:hover {
+            filter: brightness(1.1);
+        }
+
+        .category-header::after {
+            content: '▼';
+            transition: transform 0.2s ease;
+        }
+
+        .category-header.collapsed::after {
+            transform: rotate(-90deg);
+        }
+
+        .category-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .category-content.collapsed {
+            max-height: 0;
         }
 
         .easy { background: #28a745; }
@@ -232,6 +274,54 @@
             font-style: italic;
             padding: 40px;
         }
+
+        .boss-filters {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .boss-filters h3 {
+            margin: 0 0 15px 0;
+            color: #495057;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .boss-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .boss-btn {
+            padding: 10px 14px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            background: white;
+            color: #495057;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .boss-btn:hover {
+            background: #e9ecef;
+        }
+
+        .boss-btn.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .boss-btn.active:hover {
+            background: #0056b3;
+            border-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -240,28 +330,39 @@
             <h1>🏆 Achievement Tracker</h1>
         </div>
 
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number" id="doneCount">0</div>
-                <div class="stat-label">Completed</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="currentPoints">0</div>
-                <div class="stat-label">Current Points</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="totalIncludingTodo">0</div>
-                <div class="stat-label">Including To Do</div>
-            </div>
-        </div>
-
         <div class="file-input" id="loadingStatus">
             <div>🔄 Loading achievements.json...</div>
         </div>
 
-        <div id="achievementsContainer">
-            <div class="empty-state">
-                📁 Loading your achievements.json file...
+        <div class="main-layout">
+            <div class="achievements-content">
+                <div id="achievementsContainer">
+                    <div class="empty-state">
+                        📁 Loading your achievements.json file...
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="doneCount">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="currentPoints">0</div>
+                        <div class="stat-label">Current Points</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalIncludingTodo">0</div>
+                        <div class="stat-label">Including To Do</div>
+                    </div>
+                </div>
+
+                <div id="bossFilters" class="boss-filters" style="display: none;">
+                    <h3>Boss Filters</h3>
+                    <div id="bossButtons" class="boss-buttons"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -269,6 +370,8 @@
     <script>
         let achievements = {};
         let achievementStates = {}; // Track todo/done states
+        let bossFilters = {}; // Track which bosses are enabled/disabled
+        let categoryCollapsed = {}; // Track which categories are collapsed
 
         const categoryPoints = {
             easy: 1,
@@ -295,6 +398,7 @@
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
                 achievements = await response.json();
+                setupBossFilters();
                 renderAchievements();
                 updateStats();
                 
@@ -314,58 +418,166 @@
         // Load achievements automatically when page loads
         window.addEventListener('load', loadAchievementsFromFile);
 
+        function setupBossFilters() {
+            const allBosses = new Set();
+            
+            // Collect all unique monsters/bosses
+            Object.keys(achievements).forEach(category => {
+                if (achievements[category]) {
+                    achievements[category].forEach(achievement => {
+                        if (achievement.monster) {
+                            allBosses.add(achievement.monster);
+                        }
+                    });
+                }
+            });
+
+            // Initialize all bosses as active (enabled)
+            allBosses.forEach(boss => {
+                bossFilters[boss] = true;
+            });
+
+            // Initialize all categories as collapsed
+            Object.keys(categoryPoints).forEach(category => {
+                categoryCollapsed[category] = true;
+            });
+
+            // Create boss filter buttons
+            const bossButtonsContainer = document.getElementById('bossButtons');
+            const bossFiltersContainer = document.getElementById('bossFilters');
+            
+            if (allBosses.size > 0) {
+                bossFiltersContainer.style.display = 'block';
+                bossButtonsContainer.innerHTML = '';
+                
+                Array.from(allBosses).sort().forEach(boss => {
+                    const button = document.createElement('button');
+                    button.className = 'boss-btn active';
+                    button.textContent = boss;
+                    button.onclick = () => toggleBossFilter(boss);
+                    bossButtonsContainer.appendChild(button);
+                });
+            }
+        }
+
+        function toggleBossFilter(boss) {
+            bossFilters[boss] = !bossFilters[boss];
+            
+            // Update button appearance
+            const buttons = document.querySelectorAll('.boss-btn');
+            buttons.forEach(btn => {
+                if (btn.textContent === boss) {
+                    if (bossFilters[boss]) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                }
+            });
+            
+            // Re-render achievements with new filters
+            renderAchievements();
+            updateStats();
+        }
+
+        function toggleCategory(category) {
+            categoryCollapsed[category] = !categoryCollapsed[category];
+            
+            const header = document.querySelector(`[data-category="${category}"] .category-header`);
+            const content = document.querySelector(`[data-category="${category}"] .category-content`);
+            
+            if (categoryCollapsed[category]) {
+                header.classList.add('collapsed');
+                content.classList.add('collapsed');
+                content.style.maxHeight = '0px';
+            } else {
+                header.classList.remove('collapsed');
+                content.classList.remove('collapsed');
+                content.style.maxHeight = content.scrollHeight + 'px';
+                
+                // Remove max-height after animation to allow dynamic content
+                setTimeout(() => {
+                    if (!categoryCollapsed[category]) {
+                        content.style.maxHeight = 'none';
+                    }
+                }, 300);
+            }
+        }
+
         function renderAchievements() {
             const container = document.getElementById('achievementsContainer');
             container.innerHTML = '';
 
             Object.keys(categoryPoints).forEach(category => {
                 if (achievements[category] && achievements[category].length > 0) {
-                    const categoryDiv = document.createElement('div');
-                    categoryDiv.className = 'category';
-                    categoryDiv.innerHTML = `
-                        <div class="category-header ${category}">
-                            ${categoryNames[category]} (${categoryPoints[category]} point${categoryPoints[category] > 1 ? 's' : ''})
-                        </div>
-                    `;
-
-                    achievements[category].forEach((achievement, index) => {
-                        const achievementId = `${category}-${index}`;
-                        const state = achievementStates[achievementId] || 'none';
-                        
-                        const achievementDiv = document.createElement('div');
-                        achievementDiv.className = `achievement ${state === 'done' ? 'done' : ''}`;
-                        achievementDiv.innerHTML = `
-                            <div class="achievement-info">
-                                <div class="achievement-name">${achievement.name}</div>
-                                <div class="achievement-description">${achievement.description}</div>
-                                <div class="achievement-meta">
-                                    <span><strong>Monster:</strong> ${achievement.monster}</span>
-                                    <span><strong>Type:</strong> ${achievement.type}</span>
-                                </div>
-                            </div>
-                            <div class="achievement-buttons">
-                                <button class="btn btn-todo" 
-                                        onclick="setAchievementState('${achievementId}', 'todo')"
-                                        ${state === 'todo' ? 'disabled' : ''}>
-                                    To Do
-                                </button>
-                                <button class="btn btn-done" 
-                                        onclick="setAchievementState('${achievementId}', 'done')"
-                                        ${state === 'done' ? 'disabled' : ''}>
-                                    Done
-                                </button>
-                                <button class="btn btn-reset" 
-                                        onclick="setAchievementState('${achievementId}', 'none')"
-                                        ${state === 'none' ? 'disabled' : ''}>
-                                    Reset
-                                </button>
-                            </div>
-                        `;
-                        
-                        categoryDiv.appendChild(achievementDiv);
+                    // Filter achievements based on boss filters
+                    const filteredAchievements = achievements[category].filter(achievement => {
+                        return !achievement.monster || bossFilters[achievement.monster] === true;
                     });
 
-                    container.appendChild(categoryDiv);
+                    if (filteredAchievements.length > 0) {
+                        const categoryDiv = document.createElement('div');
+                        categoryDiv.className = 'category';
+                        categoryDiv.setAttribute('data-category', category);
+                        
+                        const isCollapsed = categoryCollapsed[category];
+                        
+                        categoryDiv.innerHTML = `
+                            <div class="category-header ${category} ${isCollapsed ? 'collapsed' : ''}" 
+                                 onclick="toggleCategory('${category}')">
+                                <span>${categoryNames[category]} (${categoryPoints[category]} point${categoryPoints[category] > 1 ? 's' : ''})</span>
+                            </div>
+                            <div class="category-content ${isCollapsed ? 'collapsed' : ''}" 
+                                 style="max-height: ${isCollapsed ? '0px' : 'none'}">
+                            </div>
+                        `;
+
+                        const contentDiv = categoryDiv.querySelector('.category-content');
+
+                        achievements[category].forEach((achievement, index) => {
+                            // Skip if this boss is filtered out
+                            if (achievement.monster && bossFilters[achievement.monster] !== true) {
+                                return;
+                            }
+
+                            const achievementId = `${category}-${index}`;
+                            const state = achievementStates[achievementId] || 'none';
+                            
+                            const achievementDiv = document.createElement('div');
+                            achievementDiv.className = `achievement ${state === 'done' ? 'done' : ''}`;
+                            achievementDiv.innerHTML = `
+                                <div class="achievement-info">
+                                    <div class="achievement-name">${achievement.name}</div>
+                                    <div class="achievement-description">${achievement.description}</div>
+                                    <div class="achievement-meta">
+                                        <span><strong>Monster:</strong> ${achievement.monster}</span>
+                                        <span><strong>Type:</strong> ${achievement.type}</span>
+                                    </div>
+                                </div>
+                                <div class="achievement-buttons">
+                                    <button class="btn btn-todo" 
+                                            onclick="setAchievementState('${achievementId}', 'todo')"
+                                            ${state === 'todo' ? 'disabled' : ''}>
+                                        To Do
+                                    </button>
+                                    <button class="btn btn-done" 
+                                            onclick="setAchievementState('${achievementId}', 'done')"
+                                            ${state === 'done' ? 'disabled' : ''}>
+                                        Done
+                                    </button>
+                                    <button class="btn btn-reset" 
+                                            onclick="setAchievementState('${achievementId}', 'none')"
+                                            ${state === 'none' ? 'disabled' : ''}>
+                                        Reset
+                                    </button>
+                                </div>
+                            `;
+                            
+                            contentDiv.appendChild(achievementDiv);
+                        });
+
+                        container.appendChild(categoryDiv);
+                    }
                 }
             });
         }
@@ -384,6 +596,11 @@
             Object.keys(achievements).forEach(category => {
                 if (achievements[category]) {
                     achievements[category].forEach((achievement, index) => {
+                        // Only count achievements for enabled bosses
+                        if (achievement.monster && bossFilters[achievement.monster] !== true) {
+                            return;
+                        }
+
                         const achievementId = `${category}-${index}`;
                         const state = achievementStates[achievementId];
                         const points = categoryPoints[category];
