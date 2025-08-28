@@ -314,6 +314,17 @@
             color: #adb5bd;
         }
 
+        .achievement-requirements {
+            color: #6c757d;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 6px 10px;
+            border-radius: 4px;
+            border-left: 3px solid #007bff;
+        }
+
         .achievement-buttons {
             display: flex;
             gap: 10px;
@@ -539,54 +550,71 @@
             grandmaster: 2525
         };
 
-        const bossAbbreviations = {
-            'Chambers of Xeric: Challenge Mode': 'CoX: CM',
-            'Chambers of Xeric': 'CoX',
-            'Theatre of Blood': 'ToB',
-            'Theatre of Blood: Hard Mode': 'ToB: HM',
-            'Tombs of Amascut': 'ToA',
-            'Tombs of Amascut: Expert Mode': 'ToA: Expert',
-            'The Gauntlet': 'Gauntlet',
-            'Corrupted Gauntlet': 'C. Gauntlet',
-            'Alchemical Hydra': 'Hydra',
-            'Cerberus': 'Cerberus',
-            'Commander Zilyana': 'Zilyana',
-            'General Graardor': 'Graardor',
-            'Kree\'Arra': 'Kree\'Arra',
-            'K\'ril Tsutsaroth': 'K\'ril',
-            'Corporeal Beast': 'Corp',
-            'King Black Dragon': 'KBD',
-            'Dagannoth Kings': 'DKs',
-            'Giant Mole': 'Mole',
-            'Kalphite Queen': 'KQ',
-            'Vorkath': 'Vorkath',
-            'Zulrah': 'Zulrah',
-            'Abyssal Sire': 'Sire',
-            'Kraken': 'Kraken',
-            'Thermonuclear Smoke Devil': 'Thermy',
-            'Grotesque Guardians': 'GGs',
-            'Nightmare': 'Nightmare',
-            'Phosani\'s Nightmare': 'P. Nightmare',
-            'Nex': 'Nex',
-            'Tempoross': 'Tempoross',
-            'Wintertodt': 'Wintertodt',
-            'Zalcano': 'Zalcano',
-            'Sarachnis': 'Sarachnis',
-            'Skotizo': 'Skotizo',
-            'Jad': 'Jad',
-            'Zuk': 'Zuk',
-            'Mimic': 'Mimic',
-            'Hespori': 'Hespori',
-            'Bryophyta': 'Bryophyta',
-            'Obor': 'Obor',
-            'Deranged Archaeologist': 'D. Arch',
-            'Chaos Fanatic': 'C. Fanatic',
-            'Crazy Archaeologist': 'C. Arch',
-            'Scorpia': 'Scorpia',
-            'Vet\'ion': 'Vet\'ion',
-            'Venenatis': 'Venenatis',
-            'Callisto': 'Callisto',
-            'Chaos Elemental': 'C. Elemental'
+        const bossMapping = {
+            'Sire': ['Abyssal Sire'],
+            'Hydra': ['Alchemical Hydra'], 
+            'Amoxliatl': ['Amoxliatl'],
+            'Araxxor': ['Araxxor'],
+            'Barrows': ['Barrows', 'Ahrim', 'Dharok', 'Guthan', 'Karil', 'Torag', 'Verac'],
+            'Bryophyta': ['Bryophyta'],
+            'Callisto': ['Callisto'],
+            'Cerberus': ['Cerberus'],
+            'CoX': ['Chambers of Xeric'],
+            'CoX:CM': ['Chambers of Xeric: Challenge Mode'],
+            'Chaos Ele': ['Chaos Elemental'],
+            'Chaos Fanatic': ['Chaos Fanatic'],
+            'Zilyana': ['Commander Zilyana'],
+            'Corp': ['Corporeal Beast'],
+            'Corr Gauntlet': ['Corrupted Gauntlet'],
+            'Gauntlet': ['The Gauntlet'],
+            'Dagga Kings': ['Dagannoth Kings', 'Dagannoth Prime', 'Dagannoth Rex', 'Dagannoth Supreme'],
+            'Deranged Arch': ['Deranged Archaeologist'],
+            'Duke': ['Duke Sucellus'],
+            'Colloseum': ['Colosseum'],
+            'Graardor': ['General Graardor'],
+            'Mole': ['Giant Mole'],
+            'Grotesques': ['Grotesque Guardians'],
+            'Hespori': ['Hespori'],
+            'K\'ril': ['K\'ril Tsutsaroth'],
+            'KQ': ['Kalphite Queen'],
+            'KBD': ['King Black Dragon'],
+            'Kraken': ['Kraken'],
+            'Kree\'arra': ['Kree\'Arra'],
+            'Leviathan': ['The Leviathan'],
+            'Moons': ['Lunar Chests'],
+            'Nex': ['Nex'],
+            'Obor': ['Obor'],
+            'Muspah': ['Phantom Muspah'],
+            'Phosani': ['Phosani\'s Nightmare'],
+            'Royal Titans': ['Royal Titans'],
+            'Sarachnis': ['Sarachnis'],
+            'Scorpia': ['Scorpia'],
+            'Scurrius': ['Scurrius'],
+            'Skotizo': ['Skotizo'],
+            'Tempoross': ['Tempoross'],
+            'Huey': ['Hueycoatl'],
+            'Nightmare': ['The Nightmare'],
+            'ToB': ['Theatre of Blood'],
+            'ToB:Entry': ['Theatre of Blood: Entry Mode'],
+            'ToB:HM': ['Theatre of Blood: Hard Mode'],
+            'Thermy': ['Thermonuclear Smoke Devil'],
+            'ToA': ['Tombs of Amascut'],
+            'ToA:Entry': ['Tombs of Amascut: Entry Mode'],
+            'ToA:Expert': ['Tombs of Amascut: Expert Mode'],
+            'Zuk': ['TzKal-Zuk'],
+            'Jad': ['TzTok-Jad'],
+            'Tzhaar challenge': ['TzHaar Fight Cave', 'TzHaar Fight Pit', 'TzHaar challenges'],
+            'Vardorvis': ['Vardorvis'],
+            'Venenatis': ['Venenatis'],
+            'Vet\'ion': ['Vet\'ion'],
+            'Vorkath': ['Vorkath'],
+            'Whisperer': ['The Whisperer'],
+            'Wintertodt': ['Wintertodt'],
+            'Yama': ['Yama'],
+            'Zalcano': ['Zalcano'],
+            'Zulrah': ['Zulrah'],
+            'Quest bosses': ['Galvek', 'Seren', 'Glough'],
+            'Misc': [] // Will catch everything else
         };
 
         async function loadAchievementsFromFile() {
@@ -617,39 +645,67 @@
 
         function setupBossFilters() {
             const allBosses = new Set();
+            const bossCategories = {};
             
+            // Initialize all boss categories from our mapping
+            Object.keys(bossMapping).forEach(bossCategory => {
+                bossCategories[bossCategory] = false; // Start with false, we'll find matches
+            });
+            
+            // Collect all unique monsters/bosses from achievements and categorize them
             Object.keys(achievements).forEach(category => {
                 if (achievements[category]) {
                     achievements[category].forEach(achievement => {
                         if (achievement.monster) {
                             allBosses.add(achievement.monster);
+                            
+                            // Find which category this monster belongs to
+                            let foundCategory = false;
+                            Object.keys(bossMapping).forEach(bossCategory => {
+                                if (bossMapping[bossCategory].includes(achievement.monster)) {
+                                    bossCategories[bossCategory] = true;
+                                    foundCategory = true;
+                                }
+                            });
+                            
+                            // If not found in any specific category, it goes to Misc
+                            if (!foundCategory) {
+                                bossCategories['Misc'] = true;
+                            }
                         }
                     });
                 }
             });
 
-            allBosses.forEach(boss => {
-                bossFilters[boss] = true;
+            // Initialize all found boss categories as active (enabled)
+            Object.keys(bossCategories).forEach(bossCategory => {
+                if (bossCategories[bossCategory]) {
+                    bossFilters[bossCategory] = true;
+                }
             });
 
+            // Initialize all categories as collapsed
             Object.keys(categoryPoints).forEach(category => {
                 categoryCollapsed[category] = true;
             });
 
+            // Create boss filter buttons
             const bossButtonsContainer = document.getElementById('bossButtons');
             const bossFiltersContainer = document.getElementById('bossFilters');
             
-            if (allBosses.size > 0) {
+            if (Object.keys(bossCategories).some(cat => bossCategories[cat])) {
                 bossFiltersContainer.style.display = 'block';
                 bossButtonsContainer.innerHTML = '';
                 
-                Array.from(allBosses).sort().forEach(boss => {
-                    const button = document.createElement('button');
-                    button.className = 'boss-btn active';
-                    button.textContent = bossAbbreviations[boss] || boss;
-                    button.title = boss; // Show full name on hover
-                    button.onclick = () => toggleBossFilter(boss);
-                    bossButtonsContainer.appendChild(button);
+                // Add buttons in the order specified, but only if they have achievements
+                Object.keys(bossMapping).forEach(bossCategory => {
+                    if (bossCategories[bossCategory]) {
+                        const button = document.createElement('button');
+                        button.className = 'boss-btn active';
+                        button.textContent = bossCategory;
+                        button.onclick = () => toggleBossFilter(bossCategory);
+                        bossButtonsContainer.appendChild(button);
+                    }
                 });
             }
         }
@@ -702,7 +758,7 @@
             Object.keys(achievements).forEach(category => {
                 if (achievements[category]) {
                     achievements[category].forEach((achievement, index) => {
-                        if (achievement.monster && bossFilters[achievement.monster] !== true) {
+                        if (!isAchievementVisible(achievement)) {
                             return;
                         }
                         const achievementId = `${category}-${index}`;
@@ -730,13 +786,14 @@
             });
         }
 
-        function toggleBossFilter(boss) {
-            bossFilters[boss] = !bossFilters[boss];
+        function toggleBossFilter(bossCategory) {
+            bossFilters[bossCategory] = !bossFilters[bossCategory];
             
+            // Update button appearance
             const buttons = document.querySelectorAll('.boss-btn');
             buttons.forEach(btn => {
-                if (btn.title === boss || btn.textContent === boss) {
-                    if (bossFilters[boss]) {
+                if (btn.textContent === bossCategory) {
+                    if (bossFilters[bossCategory]) {
                         btn.classList.add('active');
                     } else {
                         btn.classList.remove('active');
@@ -746,6 +803,20 @@
             
             renderAchievements();
             updateStats();
+        }
+
+        function isAchievementVisible(achievement) {
+            if (!achievement.monster) return true; // Show achievements without monsters
+            
+            // Check each boss category to see if this achievement's monster belongs to it
+            for (const [bossCategory, monsters] of Object.entries(bossMapping)) {
+                if (monsters.includes(achievement.monster)) {
+                    return bossFilters[bossCategory] === true;
+                }
+            }
+            
+            // If not found in any specific category, check Misc filter
+            return bossFilters['Misc'] === true;
         }
 
         function toggleCategory(category) {
@@ -778,7 +849,7 @@
             Object.keys(categoryPoints).forEach(category => {
                 if (achievements[category] && achievements[category].length > 0) {
                     const filteredAchievements = achievements[category].filter(achievement => {
-                        return !achievement.monster || bossFilters[achievement.monster] === true;
+                        return isAchievementVisible(achievement);
                     });
 
                     if (filteredAchievements.length > 0) {
@@ -804,7 +875,7 @@
                         const contentDiv = categoryDiv.querySelector('.category-content');
 
                         achievements[category].forEach((achievement, index) => {
-                            if (achievement.monster && bossFilters[achievement.monster] !== true) {
+                            if (!isAchievementVisible(achievement)) {
                                 return;
                             }
 
@@ -813,10 +884,17 @@
                             
                             const achievementDiv = document.createElement('div');
                             achievementDiv.className = `achievement ${state === 'done' ? 'done' : ''}`;
+                            
+                            let requirementsHtml = '';
+                            if (achievement.requirements && achievement.requirements.trim()) {
+                                requirementsHtml = `<div class="achievement-requirements">Requirements: ${achievement.requirements}</div>`;
+                            }
+                            
                             achievementDiv.innerHTML = `
                                 <div class="achievement-info">
                                     <div class="achievement-name">${achievement.name}</div>
                                     <div class="achievement-description">${achievement.description}</div>
+                                    ${requirementsHtml}
                                     <div class="achievement-meta">
                                         <span><strong>Monster:</strong> ${achievement.monster}</span>
                                         <span><strong>Type:</strong> ${achievement.type}</span>
@@ -857,8 +935,8 @@
         }
 
         function setAllBossFilters(showAll) {
-            Object.keys(bossFilters).forEach(boss => {
-                bossFilters[boss] = showAll;
+            Object.keys(bossFilters).forEach(bossCategory => {
+                bossFilters[bossCategory] = showAll;
             });
             
             // Update all button appearances
@@ -883,7 +961,7 @@
             Object.keys(achievements).forEach(category => {
                 if (achievements[category]) {
                     achievements[category].forEach((achievement, index) => {
-                        if (achievement.monster && bossFilters[achievement.monster] !== true) {
+                        if (!isAchievementVisible(achievement)) {
                             return;
                         }
 
