@@ -1,0 +1,28 @@
+{
+  "easy": [
+    {
+      "monster": "Aberrant Spectre",
+      "name": "Noxious Foe",
+      "description": "Kill an Aberrant Spectre.",
+      "type": "Kill Count"
+    },
+    {
+      "monster": "Goblin",
+      "name": "First Blood",
+      "description": "Kill your first Goblin.",
+      "type": "Kill Count"
+    }
+  ],
+  "medium": [
+    {
+      "monster": "Dragon",
+      "name": "Dragon Slayer",
+      "description": "Defeat a Dragon.",
+      "type": "Boss Kill"
+    }
+  ],
+  "hard": [],
+  "elite": [],
+  "master": [],
+  "grandmaster": []
+}

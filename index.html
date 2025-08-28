@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievement Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card.done {
+            background: linear-gradient(135deg, #00d2d3, #54a0ff);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .file-input {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px dashed #dee2e6;
+        }
+
+        .load-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .load-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .category {
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .category-header {
+            padding: 20px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .easy { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .medium { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .hard { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .elite { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .master { background: linear-gradient(135deg, #34495e, #2c3e50); }
+        .grandmaster { background: linear-gradient(135deg, #f1c40f, #f39c12); }
+
+        .achievement {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .achievement:last-child {
+            border-bottom: none;
+        }
+
+        .achievement:hover {
+            background: #f8f9fa;
+        }
+
+        .achievement.done {
+            background: #e8f5e8;
+            opacity: 0.7;
+        }
+
+        .achievement-info {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .achievement-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .achievement-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+
+        .achievement-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .achievement-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-todo {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-todo:hover {
+            background: #e0a800;
+            transform: translateY(-2px);
+        }
+
+        .btn-done {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-done:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 Achievement Tracker</h1>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="todoCount">0</div>
+                <div class="stat-label">To Do</div>
+            </div>
+            <div class="stat-card done">
+                <div class="stat-number" id="doneCount">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todoPoints">0</div>
+                <div class="stat-label">To Do Points</div>
+            </div>
+            <div class="stat-card done">
+                <div class="stat-number" id="donePoints">0</div>
+                <div class="stat-label">Earned Points</div>
+            </div>
+        </div>
+
+        <div class="file-input" id="loadingStatus">
+            <div>🔄 Loading achievements.json...</div>
+        </div>
+
+        <div id="achievementsContainer">
+            <div class="empty-state">
+                📁 Loading your achievements.json file...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let achievements = {};
+        let achievementStates = {}; // Track todo/done states
+
+        const categoryPoints = {
+            easy: 1,
+            medium: 2,
+            hard: 3,
+            elite: 4,
+            master: 5,
+            grandmaster: 6
+        };
+
+        const categoryNames = {
+            easy: 'Easy',
+            medium: 'Medium', 
+            hard: 'Hard',
+            elite: 'Elite',
+            master: 'Master',
+            grandmaster: 'Grandmaster'
+        };
+
+        async function loadAchievementsFromFile() {
+            try {
+                const response = await fetch('./achievements.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                achievements = await response.json();
+                renderAchievements();
+                updateStats();
+                
+                // Hide loading status
+                document.getElementById('loadingStatus').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading achievements.json:', error);
+                document.getElementById('loadingStatus').innerHTML = `
+                    <div style="color: #e74c3c;">
+                        ❌ Cannot load achievements.json: ${error.message}<br>
+                        <small>Make sure achievements.json is in the same folder as this HTML file.</small>
+                    </div>
+                `;
+            }
+        }
+
+        // Load achievements automatically when page loads
+        window.addEventListener('load', loadAchievementsFromFile);
+
+        function renderAchievements() {
+            const container = document.getElementById('achievementsContainer');
+            container.innerHTML = '';
+
+            Object.keys(categoryPoints).forEach(category => {
+                if (achievements[category] && achievements[category].length > 0) {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'category';
+                    categoryDiv.innerHTML = `
+                        <div class="category-header ${category}">
+                            ${categoryNames[category]} (${categoryPoints[category]} point${categoryPoints[category] > 1 ? 's' : ''})
+                        </div>
+                    `;
+
+                    achievements[category].forEach((achievement, index) => {
+                        const achievementId = `${category}-${index}`;
+                        const state = achievementStates[achievementId] || 'none';
+                        
+                        const achievementDiv = document.createElement('div');
+                        achievementDiv.className = `achievement ${state === 'done' ? 'done' : ''}`;
+                        achievementDiv.innerHTML = `
+                            <div class="achievement-info">
+                                <div class="achievement-name">${achievement.name}</div>
+                                <div class="achievement-description">${achievement.description}</div>
+                                <div class="achievement-meta">
+                                    <span><strong>Monster:</strong> ${achievement.monster}</span>
+                                    <span><strong>Type:</strong> ${achievement.type}</span>
+                                </div>
+                            </div>
+                            <div class="achievement-buttons">
+                                <button class="btn btn-todo" 
+                                        onclick="setAchievementState('${achievementId}', 'todo')"
+                                        ${state === 'todo' ? 'disabled' : ''}>
+                                    To Do
+                                </button>
+                                <button class="btn btn-done" 
+                                        onclick="setAchievementState('${achievementId}', 'done')"
+                                        ${state === 'done' ? 'disabled' : ''}>
+                                    Done
+                                </button>
+                            </div>
+                        `;
+                        
+                        categoryDiv.appendChild(achievementDiv);
+                    });
+
+                    container.appendChild(categoryDiv);
+                }
+            });
+        }
+
+        function setAchievementState(achievementId, state) {
+            achievementStates[achievementId] = state;
+            renderAchievements();
+            updateStats();
+        }
+
+        function updateStats() {
+            let todoCount = 0;
+            let doneCount = 0;
+            let todoPoints = 0;
+            let donePoints = 0;
+
+            Object.keys(achievements).forEach(category => {
+                if (achievements[category]) {
+                    achievements[category].forEach((achievement, index) => {
+                        const achievementId = `${category}-${index}`;
+                        const state = achievementStates[achievementId];
+                        const points = categoryPoints[category];
+
+                        if (state === 'todo') {
+                            todoCount++;
+                            todoPoints += points;
+                        } else if (state === 'done') {
+                            doneCount++;
+                            donePoints += points;
+                        }
+                    });
+                }
+            });
+
+            document.getElementById('todoCount').textContent = todoCount;
+            document.getElementById('doneCount').textContent = doneCount;
+            document.getElementById('todoPoints').textContent = todoPoints;
+            document.getElementById('donePoints').textContent = donePoints;
+        }
+
+        // Auto-load achievements on page load - no manual file input needed
+    </script>
+</body>
+</html>
