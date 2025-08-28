@@ -92,6 +92,89 @@
             opacity: 0.9;
         }
 
+        .milestones {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .milestones h3 {
+            margin: 0 0 15px 0;
+            color: #495057;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .milestone-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .milestone-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            background: white;
+            color: #495057;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .milestone-btn:hover {
+            background: #e9ecef;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .milestone-btn.achieved {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .milestone-btn.achieved:hover {
+            background: #c3e6cb;
+        }
+
+        .milestone-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .milestone-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .milestone-name {
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .milestone-points {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .milestone-remaining {
+            font-size: 0.7rem;
+            color: #dc3545;
+            font-weight: 500;
+        }
+
         .file-input {
             display: flex;
             align-items: center;
@@ -156,6 +239,17 @@
 
         .category-header.collapsed::after {
             transform: rotate(-90deg);
+        }
+
+        .category-header-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-icon {
+            width: 24px;
+            height: 24px;
         }
 
         .category-content {
@@ -281,31 +375,31 @@
             background: #f8f9fa;
             border-radius: 8px;
             border: 1px solid #e9ecef;
-            max-height: 300px;
-            overflow-y: auto;
         }
 
         .boss-filters h3 {
-            margin: 0 0 10px 0;
+            margin: 0 0 15px 0;
             color: #495057;
             font-size: 1rem;
             font-weight: 600;
+            text-align: center;
         }
 
         .boss-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 6px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
         }
 
         .boss-btn {
-            padding: 6px 10px;
+            padding: 8px 6px;
             border: 1px solid #dee2e6;
             border-radius: 4px;
             background: white;
             color: #495057;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 500;
             transition: all 0.2s ease;
             text-align: center;
             white-space: nowrap;
@@ -315,6 +409,8 @@
 
         .boss-btn:hover {
             background: #e9ecef;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .boss-btn.active {
@@ -336,14 +432,14 @@
         </div>
 
         <div class="file-input" id="loadingStatus">
-            <div>🔄 Loading achievements.json...</div>
+            <div>📄 Loading achievements.json...</div>
         </div>
 
         <div class="main-layout">
             <div class="achievements-content">
                 <div id="achievementsContainer">
                     <div class="empty-state">
-                        📁 Loading your achievements.json file...
+                        🔍 Loading your achievements.json file...
                     </div>
                 </div>
             </div>
@@ -364,6 +460,11 @@
                     </div>
                 </div>
 
+                <div class="milestones">
+                    <h3>Milestones</h3>
+                    <div class="milestone-grid" id="milestoneGrid"></div>
+                </div>
+
                 <div id="bossFilters" class="boss-filters" style="display: none;">
                     <h3>Boss Filters</h3>
                     <div id="bossButtons" class="boss-buttons"></div>
@@ -374,9 +475,9 @@
 
     <script>
         let achievements = {};
-        let achievementStates = {}; // Track todo/done states
-        let bossFilters = {}; // Track which bosses are enabled/disabled
-        let categoryCollapsed = {}; // Track which categories are collapsed
+        let achievementStates = {};
+        let bossFilters = {};
+        let categoryCollapsed = {};
 
         const categoryPoints = {
             easy: 1,
@@ -396,6 +497,74 @@
             grandmaster: 'Grandmaster'
         };
 
+        const categoryIcons = {
+            easy: 'https://oldschool.runescape.wiki/images/Combat_Achievements_-_easy_tier_icon.png',
+            medium: 'https://oldschool.runescape.wiki/images/Combat_Achievements_-_medium_tier_icon.png',
+            hard: 'https://oldschool.runescape.wiki/images/Combat_Achievements_-_hard_tier_icon.png',
+            elite: 'https://oldschool.runescape.wiki/images/Combat_Achievements_-_elite_tier_icon.png',
+            master: 'https://oldschool.runescape.wiki/images/Combat_Achievements_-_master_tier_icon.png',
+            grandmaster: 'https://oldschool.runescape.wiki/images/Combat_Achievements_-_grandmaster_tier_icon.png'
+        };
+
+        const milestones = {
+            easy: 38,
+            medium: 148,
+            hard: 394,
+            elite: 1026,
+            master: 1841,
+            grandmaster: 2525
+        };
+
+        const bossAbbreviations = {
+            'Chambers of Xeric: Challenge Mode': 'CoX: CM',
+            'Chambers of Xeric': 'CoX',
+            'Theatre of Blood': 'ToB',
+            'Theatre of Blood: Hard Mode': 'ToB: HM',
+            'Tombs of Amascut': 'ToA',
+            'Tombs of Amascut: Expert Mode': 'ToA: Expert',
+            'The Gauntlet': 'Gauntlet',
+            'Corrupted Gauntlet': 'C. Gauntlet',
+            'Alchemical Hydra': 'Hydra',
+            'Cerberus': 'Cerberus',
+            'Commander Zilyana': 'Zilyana',
+            'General Graardor': 'Graardor',
+            'Kree\'Arra': 'Kree\'Arra',
+            'K\'ril Tsutsaroth': 'K\'ril',
+            'Corporeal Beast': 'Corp',
+            'King Black Dragon': 'KBD',
+            'Dagannoth Kings': 'DKs',
+            'Giant Mole': 'Mole',
+            'Kalphite Queen': 'KQ',
+            'Vorkath': 'Vorkath',
+            'Zulrah': 'Zulrah',
+            'Abyssal Sire': 'Sire',
+            'Kraken': 'Kraken',
+            'Thermonuclear Smoke Devil': 'Thermy',
+            'Grotesque Guardians': 'GGs',
+            'Nightmare': 'Nightmare',
+            'Phosani\'s Nightmare': 'P. Nightmare',
+            'Nex': 'Nex',
+            'Tempoross': 'Tempoross',
+            'Wintertodt': 'Wintertodt',
+            'Zalcano': 'Zalcano',
+            'Sarachnis': 'Sarachnis',
+            'Skotizo': 'Skotizo',
+            'Jad': 'Jad',
+            'Zuk': 'Zuk',
+            'Mimic': 'Mimic',
+            'Hespori': 'Hespori',
+            'Bryophyta': 'Bryophyta',
+            'Obor': 'Obor',
+            'Deranged Archaeologist': 'D. Arch',
+            'Chaos Fanatic': 'C. Fanatic',
+            'Crazy Archaeologist': 'C. Arch',
+            'Scorpia': 'Scorpia',
+            'Vet\'ion': 'Vet\'ion',
+            'Venenatis': 'Venenatis',
+            'Callisto': 'Callisto',
+            'Chaos Elemental': 'C. Elemental'
+        };
+
         async function loadAchievementsFromFile() {
             try {
                 const response = await fetch('./achievements.json');
@@ -404,10 +573,10 @@
                 }
                 achievements = await response.json();
                 setupBossFilters();
+                setupMilestones();
                 renderAchievements();
                 updateStats();
                 
-                // Hide loading status
                 document.getElementById('loadingStatus').style.display = 'none';
             } catch (error) {
                 console.error('Error loading achievements.json:', error);
@@ -420,13 +589,11 @@
             }
         }
 
-        // Load achievements automatically when page loads
         window.addEventListener('load', loadAchievementsFromFile);
 
         function setupBossFilters() {
             const allBosses = new Set();
             
-            // Collect all unique monsters/bosses
             Object.keys(achievements).forEach(category => {
                 if (achievements[category]) {
                     achievements[category].forEach(achievement => {
@@ -437,17 +604,14 @@
                 }
             });
 
-            // Initialize all bosses as active (enabled)
             allBosses.forEach(boss => {
                 bossFilters[boss] = true;
             });
 
-            // Initialize all categories as collapsed
             Object.keys(categoryPoints).forEach(category => {
                 categoryCollapsed[category] = true;
             });
 
-            // Create boss filter buttons
             const bossButtonsContainer = document.getElementById('bossButtons');
             const bossFiltersContainer = document.getElementById('bossFilters');
             
@@ -458,20 +622,96 @@
                 Array.from(allBosses).sort().forEach(boss => {
                     const button = document.createElement('button');
                     button.className = 'boss-btn active';
-                    button.textContent = boss;
+                    button.textContent = bossAbbreviations[boss] || boss;
+                    button.title = boss; // Show full name on hover
                     button.onclick = () => toggleBossFilter(boss);
                     bossButtonsContainer.appendChild(button);
                 });
             }
         }
 
+        function setupMilestones() {
+            const milestoneGrid = document.getElementById('milestoneGrid');
+            milestoneGrid.innerHTML = '';
+
+            Object.keys(milestones).forEach(tier => {
+                const button = document.createElement('button');
+                button.className = 'milestone-btn';
+                button.onclick = () => toggleMilestoneInfo(tier, button);
+                
+                button.innerHTML = `
+                    <img src="${categoryIcons[tier]}" alt="${tier}" class="milestone-icon">
+                    <div class="milestone-text">
+                        <div class="milestone-name">${categoryNames[tier]}</div>
+                        <div class="milestone-points">${milestones[tier]} pts</div>
+                    </div>
+                `;
+                
+                milestoneGrid.appendChild(button);
+            });
+        }
+
+        function toggleMilestoneInfo(tier, button) {
+            const currentPoints = getCurrentPoints();
+            const milestonePoints = milestones[tier];
+            const remaining = Math.max(0, milestonePoints - currentPoints);
+            
+            // Remove any existing remaining text from all buttons
+            document.querySelectorAll('.milestone-remaining').forEach(el => el.remove());
+            
+            if (remaining > 0) {
+                const remainingDiv = document.createElement('div');
+                remainingDiv.className = 'milestone-remaining';
+                remainingDiv.textContent = `Need ${remaining} more`;
+                button.querySelector('.milestone-text').appendChild(remainingDiv);
+            }
+            
+            // Remove the text after 3 seconds
+            setTimeout(() => {
+                const remainingEl = button.querySelector('.milestone-remaining');
+                if (remainingEl) remainingEl.remove();
+            }, 3000);
+        }
+
+        function getCurrentPoints() {
+            let currentPoints = 0;
+            Object.keys(achievements).forEach(category => {
+                if (achievements[category]) {
+                    achievements[category].forEach((achievement, index) => {
+                        if (achievement.monster && bossFilters[achievement.monster] !== true) {
+                            return;
+                        }
+                        const achievementId = `${category}-${index}`;
+                        const state = achievementStates[achievementId];
+                        if (state === 'done') {
+                            currentPoints += categoryPoints[category];
+                        }
+                    });
+                }
+            });
+            return currentPoints;
+        }
+
+        function updateMilestoneStates() {
+            const currentPoints = getCurrentPoints();
+            document.querySelectorAll('.milestone-btn').forEach((btn, index) => {
+                const tier = Object.keys(milestones)[index];
+                const milestonePoints = milestones[tier];
+                
+                if (currentPoints >= milestonePoints) {
+                    btn.classList.add('achieved');
+                } else {
+                    btn.classList.remove('achieved');
+                }
+            });
+        }
+
         function toggleBossFilter(boss) {
             bossFilters[boss] = !bossFilters[boss];
             
-            // Update button appearance
             const buttons = document.querySelectorAll('.boss-btn');
             buttons.forEach(btn => {
-                if (btn.textContent === boss) {
+                if (btn.title === boss || btn.textContent === boss) {
                     if (bossFilters[boss]) {
                         btn.classList.add('active');
                     } else {
@@ -480,7 +720,6 @@
                 }
             });
             
-            // Re-render achievements with new filters
             renderAchievements();
             updateStats();
         }
@@ -500,7 +739,6 @@
                 content.classList.remove('collapsed');
                 content.style.maxHeight = content.scrollHeight + 'px';
                 
-                // Remove max-height after animation to allow dynamic content
                 setTimeout(() => {
                     if (!categoryCollapsed[category]) {
                         content.style.maxHeight = 'none';
@@ -515,7 +753,6 @@
 
             Object.keys(categoryPoints).forEach(category => {
                 if (achievements[category] && achievements[category].length > 0) {
-                    // Filter achievements based on boss filters
                     const filteredAchievements = achievements[category].filter(achievement => {
                         return !achievement.monster || bossFilters[achievement.monster] === true;
                     });
@@ -530,7 +767,10 @@
                         categoryDiv.innerHTML = `
                             <div class="category-header ${category} ${isCollapsed ? 'collapsed' : ''}" 
                                  onclick="toggleCategory('${category}')">
-                                <span>${categoryNames[category]} (${categoryPoints[category]} point${categoryPoints[category] > 1 ? 's' : ''})</span>
+                                <div class="category-header-content">
+                                    <img src="${categoryIcons[category]}" alt="${category}" class="category-icon">
+                                    <span>${categoryNames[category]} (${categoryPoints[category]} point${categoryPoints[category] > 1 ? 's' : ''})</span>
+                                </div>
                             </div>
                             <div class="category-content ${isCollapsed ? 'collapsed' : ''}" 
                                  style="max-height: ${isCollapsed ? '0px' : 'none'}">
@@ -540,7 +780,6 @@
                         const contentDiv = categoryDiv.querySelector('.category-content');
 
                         achievements[category].forEach((achievement, index) => {
-                            // Skip if this boss is filtered out
                             if (achievement.monster && bossFilters[achievement.monster] !== true) {
                                 return;
                             }
@@ -601,7 +840,6 @@
             Object.keys(achievements).forEach(category => {
                 if (achievements[category]) {
                     achievements[category].forEach((achievement, index) => {
-                        // Only count achievements for enabled bosses
                         if (achievement.monster && bossFilters[achievement.monster] !== true) {
                             return;
                         }
@@ -624,9 +862,9 @@
             document.getElementById('doneCount').textContent = doneCount;
             document.getElementById('currentPoints').textContent = currentPoints;
             document.getElementById('totalIncludingTodo').textContent = totalIncludingTodo;
+            
+            updateMilestoneStates();
         }
-
-        // Auto-load achievements on page load - no manual file input needed
     </script>
 </body>
 </html>
