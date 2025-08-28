@@ -76,6 +76,18 @@
             border: 1px solid #e9ecef;
         }
 
+        .stat-card.compact {
+            padding: 15px;
+        }
+
+        .stat-card.compact .stat-number {
+            font-size: 1.5rem;
+        }
+
+        .stat-card.compact .stat-label {
+            font-size: 0.85rem;
+        }
+
         .stat-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -477,15 +489,11 @@
 
             <div class="sidebar">
                 <div class="stats">
-                    <div class="stat-card">
-                        <div class="stat-number" id="doneCount">0</div>
-                        <div class="stat-label">Completed</div>
-                    </div>
-                    <div class="stat-card">
+                    <div class="stat-card compact">
                         <div class="stat-number" id="currentPoints">0</div>
                         <div class="stat-label">Current Points</div>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card compact">
                         <div class="stat-number" id="totalIncludingTodo">0</div>
                         <div class="stat-label">Including To Do</div>
                     </div>
@@ -895,7 +903,6 @@
                 }
             });
 
-            document.getElementById('doneCount').textContent = doneCount;
             document.getElementById('currentPoints').textContent = currentPoints;
             document.getElementById('totalIncludingTodo').textContent = totalIncludingTodo;
             
