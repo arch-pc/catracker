@@ -466,6 +466,33 @@
             transform: translateY(-1px);
             box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
         }
+
+        .full-reset-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .full-reset-btn:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        .full-reset-btn:active {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -515,6 +542,10 @@
             </div>
         </div>
     </div>
+
+    <button class="full-reset-btn" onclick="fullReset()" title="Reset all achievements and settings">
+        🔄 Full Reset
+    </button>
 
     <script>
         let achievements = {};
@@ -573,6 +604,9 @@
         ];
 
         async function loadAchievementsFromFile() {
+            // Load saved data first
+            loadSavedData();
+            
             try {
                 const response = await fetch('./achievements.json');
                 if (!response.ok) {
@@ -619,12 +653,18 @@
                 }
             });
 
+            // Initialize boss filters (use saved data if available, otherwise default to true)
             filteredBosses.forEach(boss => {
-                bossFilters[boss] = true;
+                if (!(boss in bossFilters)) {
+                    bossFilters[boss] = true;
+                }
             });
 
+            // Initialize category collapsed states (use saved data if available, otherwise default to true)
             Object.keys(categoryPoints).forEach(category => {
-                categoryCollapsed[category] = true;
+                if (!(category in categoryCollapsed)) {
+                    categoryCollapsed[category] = true;
+                }
             });
 
             const bossButtonsContainer = document.getElementById('bossButtons');
@@ -639,7 +679,7 @@
                 
                 sortedBosses.forEach(boss => {
                     const button = document.createElement('button');
-                    button.className = 'boss-btn active';
+                    button.className = `boss-btn ${bossFilters[boss] ? 'active' : ''}`;
                     button.textContent = boss;
                     button.title = boss;
                     button.onclick = () => toggleBossFilter(boss);
@@ -740,6 +780,7 @@
             
             renderAchievements();
             updateStats();
+            saveData(); // Save filter changes
         }
 
         function toggleCategory(category) {
@@ -763,6 +804,8 @@
                     }
                 }, 300);
             }
+            
+            saveData(); // Save collapsed state changes
         }
 
         function renderAchievements() {
@@ -855,6 +898,7 @@
             achievementStates[achievementId] = state;
             renderAchievements();
             updateStats();
+            saveData(); // Save achievement state changes
         }
 
         function setAllBossFilters(showAll) {
@@ -874,6 +918,7 @@
             
             renderAchievements();
             updateStats();
+            saveData(); // Save filter changes
         }
 
         function updateStats() {
@@ -907,6 +952,29 @@
             document.getElementById('totalIncludingTodo').textContent = totalIncludingTodo;
             
             updateMilestoneStates();
+        }
+
+        function fullReset() {
+            if (confirm('Are you sure you want to reset ALL achievements, filters, and settings? This cannot be undone!')) {
+                // Clear localStorage
+                localStorage.removeItem('achievementTracker_states');
+                localStorage.removeItem('achievementTracker_filters');
+                localStorage.removeItem('achievementTracker_collapsed');
+                
+                // Reset all variables to defaults
+                achievementStates = {};
+                bossFilters = {};
+                categoryCollapsed = {};
+                
+                // Re-setup everything with defaults
+                setupBossFilters();
+                setupMilestones();
+                renderAchievements();
+                updateStats();
+                
+                // Show confirmation
+                alert('All data has been reset!');
+            }
         }
     </script>
 </body>
