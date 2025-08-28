@@ -307,6 +307,17 @@
             margin-bottom: 3px;
         }
 
+        .achievement-requirements {
+            color: #17a2b8;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            font-style: italic;
+            background: #e8f4f8;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border-left: 3px solid #17a2b8;
+        }
+
         .achievement-meta {
             display: flex;
             gap: 15px;
@@ -423,6 +434,26 @@
             background: #0056b3;
             border-color: #0056b3;
         }
+
+        .filter-control-btn {
+            padding: 6px 16px;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            background: white;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            flex: 1;
+        }
+
+        .filter-control-btn:hover {
+            background: #007bff;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -467,6 +498,10 @@
 
                 <div id="bossFilters" class="boss-filters" style="display: none;">
                     <h3>Boss Filters</h3>
+                    <div class="filter-controls" style="margin-bottom: 12px; display: flex; gap: 8px;">
+                        <button class="filter-control-btn" onclick="setAllBossFilters(true)">Show All</button>
+                        <button class="filter-control-btn" onclick="setAllBossFilters(false)">Show None</button>
+                    </div>
                     <div id="bossButtons" class="boss-buttons"></div>
                 </div>
             </div>
@@ -515,55 +550,19 @@
             grandmaster: 2525
         };
 
-        const bossAbbreviations = {
-            'Chambers of Xeric: Challenge Mode': 'CoX: CM',
-            'Chambers of Xeric': 'CoX',
-            'Theatre of Blood': 'ToB',
-            'Theatre of Blood: Hard Mode': 'ToB: HM',
-            'Tombs of Amascut': 'ToA',
-            'Tombs of Amascut: Expert Mode': 'ToA: Expert',
-            'The Gauntlet': 'Gauntlet',
-            'Corrupted Gauntlet': 'C. Gauntlet',
-            'Alchemical Hydra': 'Hydra',
-            'Cerberus': 'Cerberus',
-            'Commander Zilyana': 'Zilyana',
-            'General Graardor': 'Graardor',
-            'Kree\'Arra': 'Kree\'Arra',
-            'K\'ril Tsutsaroth': 'K\'ril',
-            'Corporeal Beast': 'Corp',
-            'King Black Dragon': 'KBD',
-            'Dagannoth Kings': 'DKs',
-            'Giant Mole': 'Mole',
-            'Kalphite Queen': 'KQ',
-            'Vorkath': 'Vorkath',
-            'Zulrah': 'Zulrah',
-            'Abyssal Sire': 'Sire',
-            'Kraken': 'Kraken',
-            'Thermonuclear Smoke Devil': 'Thermy',
-            'Grotesque Guardians': 'GGs',
-            'Nightmare': 'Nightmare',
-            'Phosani\'s Nightmare': 'P. Nightmare',
-            'Nex': 'Nex',
-            'Tempoross': 'Tempoross',
-            'Wintertodt': 'Wintertodt',
-            'Zalcano': 'Zalcano',
-            'Sarachnis': 'Sarachnis',
-            'Skotizo': 'Skotizo',
-            'Jad': 'Jad',
-            'Zuk': 'Zuk',
-            'Mimic': 'Mimic',
-            'Hespori': 'Hespori',
-            'Bryophyta': 'Bryophyta',
-            'Obor': 'Obor',
-            'Deranged Archaeologist': 'D. Arch',
-            'Chaos Fanatic': 'C. Fanatic',
-            'Crazy Archaeologist': 'C. Arch',
-            'Scorpia': 'Scorpia',
-            'Vet\'ion': 'Vet\'ion',
-            'Venenatis': 'Venenatis',
-            'Callisto': 'Callisto',
-            'Chaos Elemental': 'C. Elemental'
-        };
+        const bossCategories = [
+            'Sire', 'Hydra', 'Amoxliatl', 'Araxxor', 'Barrows', 'Bryophyta', 
+            'Callisto', 'Cerberus', 'CoX', 'CoX:CM', 'Chaos Ele', 'Chaos Fanatic',
+            'Zilyana', 'Corp', 'Corr Gauntlet', 'Gauntlet', 'Dagga Kings', 
+            'Deranged Arch', 'Duke', 'Colloseum', 'Graardor', 'Mole', 'Grotesques',
+            'Hespori', 'K\'ril', 'KQ', 'KBD', 'Kraken', 'Kree\'arra', 'Leviathan',
+            'Moons', 'Nex', 'Obor', 'Muspah', 'Phosani', 'Royal Titans', 'Sarachnis',
+            'Scorpia', 'Scurrius', 'Skotizo', 'Tempoross', 'Huey', 'Nightmare',
+            'ToB', 'ToB:Entry', 'ToB:HM', 'Thermy', 'ToA', 'ToA:Entry', 'ToA:Expert',
+            'Zuk', 'Jad', 'Tzhaar challenge', 'Vardorvis', 'Venenatis', 'Vet\'ion',
+            'Vorkath', 'Whisperer', 'Wintertodt', 'Yama', 'Zalcano', 'Zulrah',
+            'Quest bosses', 'Misc'
+        ];
 
         async function loadAchievementsFromFile() {
             try {
@@ -604,7 +603,15 @@
                 }
             });
 
+            // Only include bosses that are in our predefined list
+            const filteredBosses = new Set();
             allBosses.forEach(boss => {
+                if (bossCategories.includes(boss)) {
+                    filteredBosses.add(boss);
+                }
+            });
+
+            filteredBosses.forEach(boss => {
                 bossFilters[boss] = true;
             });
 
@@ -615,15 +622,18 @@
             const bossButtonsContainer = document.getElementById('bossButtons');
             const bossFiltersContainer = document.getElementById('bossFilters');
             
-            if (allBosses.size > 0) {
+            if (filteredBosses.size > 0) {
                 bossFiltersContainer.style.display = 'block';
                 bossButtonsContainer.innerHTML = '';
                 
-                Array.from(allBosses).sort().forEach(boss => {
+                // Sort according to our predefined order
+                const sortedBosses = bossCategories.filter(boss => filteredBosses.has(boss));
+                
+                sortedBosses.forEach(boss => {
                     const button = document.createElement('button');
                     button.className = 'boss-btn active';
-                    button.textContent = bossAbbreviations[boss] || boss;
-                    button.title = boss; // Show full name on hover
+                    button.textContent = boss;
+                    button.title = boss;
                     button.onclick = () => toggleBossFilter(boss);
                     bossButtonsContainer.appendChild(button);
                 });
@@ -789,10 +799,17 @@
                             
                             const achievementDiv = document.createElement('div');
                             achievementDiv.className = `achievement ${state === 'done' ? 'done' : ''}`;
+                            
+                            let requirementsHTML = '';
+                            if (achievement.requirements) {
+                                requirementsHTML = `<div class="achievement-requirements">Requirements: ${achievement.requirements}</div>`;
+                            }
+                            
                             achievementDiv.innerHTML = `
                                 <div class="achievement-info">
                                     <div class="achievement-name">${achievement.name}</div>
                                     <div class="achievement-description">${achievement.description}</div>
+                                    ${requirementsHTML}
                                     <div class="achievement-meta">
                                         <span><strong>Monster:</strong> ${achievement.monster}</span>
                                         <span><strong>Type:</strong> ${achievement.type}</span>
@@ -828,6 +845,25 @@
 
         function setAchievementState(achievementId, state) {
             achievementStates[achievementId] = state;
+            renderAchievements();
+            updateStats();
+        }
+
+        function setAllBossFilters(showAll) {
+            Object.keys(bossFilters).forEach(boss => {
+                bossFilters[boss] = showAll;
+            });
+            
+            // Update all button appearances
+            const buttons = document.querySelectorAll('.boss-btn');
+            buttons.forEach(btn => {
+                if (showAll) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
             renderAchievements();
             updateStats();
         }
